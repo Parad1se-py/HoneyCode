@@ -13,6 +13,8 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+import asyncio
+
 import discord
 from discord.ext import commands
 from discord import ApplicationContext, Member, Option
@@ -65,6 +67,30 @@ class BasicModCog(commands.Cog):
                 color=discord.Colour.yellow()
             )
         )
+
+    @commands.slash_command(
+        name='purge',
+        description='Purge messages from a channel.',
+        usage='/purge <messages=5> [channel]'
+    )
+    @discord.default_permissions(
+        delete_messages=True
+    )
+    @commands.guild_only()
+    async def purge(self, ctx: ApplicationContext, limit: Option(int, required=False, description='Amount of messags to purge.') = 5, channel: Option(discord.TextChannel, required=False, description='Channel to purge.') = None):
+        if not channel:
+            channel = ctx.channel
+        
+        await channel.purge(limit=limit)
+        msg = await ctx.respond(
+            embed=make_embed(
+                title=f'{limit} messages successfully purged.',
+                description=None,
+                color=discord.Colour.yellow()
+            )
+        )
+        asyncio.sleep(5)
+        await msg.delete()
 
 def setup(bot):
     bot.add_cog(BasicModCog(bot))
