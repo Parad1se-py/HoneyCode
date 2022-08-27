@@ -15,9 +15,12 @@
 
 import discord
 from discord.ext import commands
+from discord import ApplicationContext, Member, Option
+
+from utils import *
 
 
-class BasicMod(commands.Cog):
+class BasicModCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -25,5 +28,43 @@ class BasicMod(commands.Cog):
     async def on_ready(self):
         print(f'{self.__class__.__name__} is ready!')
 
+    @commands.slash_command(
+        name='kick',
+        description='Kick any user below your & HoneyCode\'s hierarchy.',
+        usage='/kick <user> [reason]'
+    )
+    @discord.default_permissions(
+        kick_members=True
+    )
+    @commands.guild_only()
+    async def kick(self, ctx: ApplicationContext, user: Option(Member, required=True, description='Person you want to kick.'), reason: Option(str, required=False, description='Reason to kicking user.') = "No Reason Provided."):
+        await ctx.guild.kick(user, reason=reason)
+        await ctx.respond(
+            embed=make_embed(
+                title=f'Successfully kicked {user.name}!',
+                description=f'{user.name}#{user.discriminator} was kicked by {ctx.author.name}\nReason : *{reason}*',
+                color=discord.Colour.yellow()
+            )
+        )
+
+    @commands.slash_command(
+        name='ban',
+        description='Ban any user below your & HoneyCode\'s hierarchy.',
+        usage='/ban <user> [reason]'
+    )
+    @discord.default_permissions(
+        ban_members=True
+    )
+    @commands.guild_only()
+    async def ban(self, ctx: ApplicationContext, user: Option(Member, required=True, description='Person you want to ban.'), reason: Option(str, required=False, description='Reason to banning user.') = "No Reason Provided."):
+        await ctx.guild.ban(user, reason=reason)
+        await ctx.respond(
+            embed=make_embed(
+                title=f'Successfully banned {user.name}!',
+                description=f'{user.name}#{user.discriminator} was banned by {ctx.author.name}\nReason : *{reason}*',
+                color=discord.Colour.yellow()
+            )
+        )
+
 def setup(bot):
-    bot.add_cog(BasicMod(bot))
+    bot.add_cog(BasicModCog(bot))
