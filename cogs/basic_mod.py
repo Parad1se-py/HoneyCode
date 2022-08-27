@@ -43,9 +43,9 @@ class BasicModCog(commands.Cog):
         await ctx.guild.kick(user, reason=reason)
         await ctx.respond(
             embed=make_embed(
-                title=f'Successfully kicked {user.name}!',
-                description=f'{user.name}#{user.discriminator} was kicked by {ctx.author.name}\nReason : *{reason}*',
-                color=discord.Colour.yellow()
+                title = f'Successfully kicked {user.name}!',
+                description = f'{user.name}#{user.discriminator} was kicked by {ctx.author.name}\nReason : *{reason}*',
+                color = discord.Colour.yellow()
             )
         )
 
@@ -62,9 +62,9 @@ class BasicModCog(commands.Cog):
         await ctx.guild.ban(user, reason=reason)
         await ctx.respond(
             embed=make_embed(
-                title=f'Successfully banned {user.name}!',
-                description=f'{user.name}#{user.discriminator} was banned by {ctx.author.name}\nReason : *{reason}*',
-                color=discord.Colour.yellow()
+                title = f'Successfully banned {user.name}!',
+                description = f'{user.name}#{user.discriminator} was banned by {ctx.author.name}\nReason : *{reason}*',
+                color = discord.Colour.yellow()
             )
         )
 
@@ -84,9 +84,9 @@ class BasicModCog(commands.Cog):
         await channel.purge(limit=limit)
         msg = await ctx.respond(
             embed=make_embed(
-                title=f'{limit} messages successfully purged.',
-                description=None,
-                color=discord.Colour.yellow()
+                title = f'{limit} messages successfully purged.',
+                description = None,
+                color = discord.Colour.yellow()
             )
         )
         asyncio.sleep(5)

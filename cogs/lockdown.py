@@ -30,5 +30,30 @@ class Lockdown(commands.Cog):
     async def on_ready(self):
         print(f'{self.__class__.__name__} is ready!')
 
+    @commands.slash_command(
+        name='lock',
+        description='Lock any channel.',
+        usage='/lock [channel] [reason]'
+    )
+    @commands.has_permissions(
+        manage_channels=True
+    )
+    async def lock(
+        self,
+        ctx: ApplicationContext,
+        channel: Option(discord.channel, required=False) = None
+    ):
+
+        if not channel:
+            channel = ctx.channel
+
+        await ctx.respond(
+            embed = make_embed(
+                title = f"Locked {channel.name}",
+                description=None,
+                color = discord.Colour.yellow()
+            )
+        )
+
 def setup(bot):
     bot.add_cog(Lockdown(bot))
