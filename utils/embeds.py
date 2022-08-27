@@ -87,4 +87,3 @@ def make_embed(*,
                 embed.fields.append(i)
 
     return embed
-    
