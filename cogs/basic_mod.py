@@ -74,7 +74,7 @@ class BasicModCog(commands.Cog):
         usage='/purge <messages=5> [channel]'
     )
     @discord.default_permissions(
-        delete_messages=True
+        manage_messages=True
     )
     @commands.guild_only()
     async def purge(self, ctx: ApplicationContext, limit: Option(int, required=False, description='Amount of messags to purge.') = 5, channel: Option(discord.TextChannel, required=False, description='Channel to purge.') = None):
