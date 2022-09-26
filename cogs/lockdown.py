@@ -52,7 +52,7 @@ class Lockdown(commands.Cog):
             embed = make_embed(
                 title = f"Locked {channel.name}",
                 description=None,
-                color = discord.Colour.yellow()
+                colour=discord.Colour.yellow()
             )
         )
 
@@ -80,7 +80,7 @@ class Lockdown(commands.Cog):
             embed = make_embed(
                 title = f"Unlocked {channel.name}",
                 description=None,
-                color = discord.Colour.yellow()
+                colour=discord.Colour.yellow()
             )
         )
 
