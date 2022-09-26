@@ -46,10 +46,41 @@ class Lockdown(commands.Cog):
 
         if not channel:
             channel = ctx.channel
+        overwrite = channel.overwrites_for(ctx.guild.default_role)
+        overwrite.send_messages = False
+        await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
 
         await ctx.respond(
             embed = make_embed(
                 title = f"Locked {channel.name}",
+                description=None,
+                color = discord.Colour.yellow()
+            )
+        )
+
+    @commands.slash_command(
+        name='unlock',
+        description='Unlock a locked channel.',
+        usage='/Unlock [channel] [reason]'
+    )
+    @commands.has_permissions(
+        manage_channels=True
+    )
+    async def unlock(
+        self,
+        ctx: ApplicationContext,
+        channel: Option(discord.channel, required=False) = None
+    ):
+
+        if not channel:
+            channel = ctx.channel
+        overwrite = channel.overwrites_for(ctx.guild.default_role)
+        overwrite.send_messages = True
+        await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+
+        await ctx.respond(
+            embed = make_embed(
+                title = f"Unlocked {channel.name}",
                 description=None,
                 color = discord.Colour.yellow()
             )
