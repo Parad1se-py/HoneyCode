@@ -13,8 +13,6 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-import asyncio
-
 import discord
 from discord.ext import commands
 from discord import ApplicationContext, Member, Option
@@ -41,7 +39,7 @@ class Lockdown(commands.Cog):
     async def lock(
         self,
         ctx: ApplicationContext,
-        channel: Option(discord.channel, required=False) = None
+        channel: Option(discord.TextChannel, required=False) = None
     ):
 
         if not channel:
@@ -69,7 +67,7 @@ class Lockdown(commands.Cog):
     async def unlock(
         self,
         ctx: ApplicationContext,
-        channel: Option(discord.channel, required=False) = None
+        channel: Option(discord.TextChannel, required=False) = None
     ):
 
         if not channel:
